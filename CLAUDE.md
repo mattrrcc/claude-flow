@@ -1,8 +1,8 @@
 # Claude Code Configuration - Ruflo v3.5
 
-> **Ruflo v3.5** (2026-04-07) — Stable release with verified capabilities.
+> **Ruflo v3.5** (2026-04-18) — Stable release with verified capabilities.
 > 6,000+ commits, 314 MCP tools, 16 agent roles + custom types, 19 AgentDB controllers.
-> Packages: `@claude-flow/cli@3.5.65`, `claude-flow@3.5.65`, `ruflo@3.5.65`
+> Packages: `@claude-flow/cli@3.5.69`, `claude-flow@3.5.69`, `ruflo@3.5.69`
 
 ## Behavioral Rules (Always Enforced)
 
@@ -38,12 +38,65 @@
 
 | Package | Path | Purpose |
 |---------|------|---------|
-| `@claude-flow/cli` | `v3/@claude-flow/cli/` | CLI entry point (26 commands) |
+| `@claude-flow/cli` | `v3/@claude-flow/cli/` | CLI entry point (26 commands, 140+ subcommands) |
 | `@claude-flow/codex` | `v3/@claude-flow/codex/` | Dual-mode Claude + Codex collaboration |
-| `@claude-flow/guidance` | `v3/@claude-flow/guidance/` | Governance control plane |
-| `@claude-flow/hooks` | `v3/@claude-flow/hooks/` | 17 hooks + 12 workers |
-| `@claude-flow/memory` | `v3/@claude-flow/memory/` | AgentDB + HNSW search |
-| `@claude-flow/security` | `v3/@claude-flow/security/` | Input validation, CVE remediation |
+| `@claude-flow/guidance` | `v3/@claude-flow/guidance/` | Governance control plane (compile, enforce, prove, evolve) |
+| `@claude-flow/hooks` | `v3/@claude-flow/hooks/` | 17 hooks + 12 background workers |
+| `@claude-flow/memory` | `v3/@claude-flow/memory/` | AgentDB + HNSW + DiskANN vector search |
+| `@claude-flow/security` | `v3/@claude-flow/security/` | Input validation, CVE remediation, path security |
+| `@claude-flow/embeddings` | `v3/@claude-flow/embeddings/` | Vector embeddings (sql.js, HNSW, hyperbolic, 75x faster) |
+| `@claude-flow/shared` | `v3/@claude-flow/shared/` | Shared types, utilities, and interfaces |
+| `@claude-flow/mcp` | `v3/@claude-flow/mcp/` | MCP server management and tool execution |
+| `@claude-flow/swarm` | `v3/@claude-flow/swarm/` | Multi-agent swarm coordination |
+| `@claude-flow/neural` | `v3/@claude-flow/neural/` | Neural pattern training (SONA, MoE, EWC++) |
+| `@claude-flow/performance` | `v3/@claude-flow/performance/` | Performance profiling and benchmarking |
+| `@claude-flow/claims` | `v3/@claude-flow/claims/` | Claims-based authorization |
+| `@claude-flow/plugins` | `v3/@claude-flow/plugins/` | Plugin management (discovery, store, IPFS) |
+
+## Repository Structure
+
+```
+claude-flow/
+├── bin/                     # Root CLI proxies (→ v3/@claude-flow/cli)
+├── v2/                      # Legacy version (maintained for compatibility)
+├── v3/                      # Current production version (monorepo)
+│   ├── @claude-flow/        # 22 sub-packages (cli, memory, security, …)
+│   ├── src/                 # Core orchestration source
+│   │   ├── agent-lifecycle/ # Agent spawning and lifecycle
+│   │   ├── coordination/    # Swarm coordination
+│   │   ├── infrastructure/  # System infrastructure
+│   │   ├── mcp/             # MCP protocol implementation
+│   │   ├── memory/          # Memory management
+│   │   └── task-execution/  # Task handling
+│   ├── __tests__/           # Integration tests
+│   ├── plugins/             # 17 optional plugins
+│   ├── implementation/      # 16 implementation modules
+│   ├── mcp/                 # MCP server integration
+│   ├── swarm.config.ts      # Swarm topology config
+│   └── index.ts             # Main entry point
+├── ruflo/                   # Enterprise deployment platform
+│   └── src/
+│       ├── chat-ui/         # Chat interface
+│       ├── mcp-bridge/      # MCP bridge
+│       └── ruvocal/         # RuVocal AI system
+├── scripts/                 # Setup and verification scripts
+├── tests/                   # Root integration tests
+├── agents/                  # Agent YAML definitions
+├── .claude/                 # Claude Code integration
+│   ├── agents/              # 28 agent configs
+│   ├── skills/              # 40+ skills
+│   └── commands/            # 21 commands
+└── .claude-flow/            # Runtime state (sessions, data)
+```
+
+### Entry Points
+
+| Entry | Path | Purpose |
+|-------|------|---------|
+| Root CLI | `bin/cli.js` | Proxies to v3/@claude-flow/cli |
+| V3 CLI | `v3/@claude-flow/cli/bin/cli.js` | 26 commands, 140+ subcommands |
+| MCP Server | `v3/@claude-flow/cli/bin/mcp-server.js` | MCP protocol server |
+| Ruflo CLI | `ruflo/bin/ruflo.js` | Enterprise platform entry |
 
 ## Concurrency: 1 MESSAGE = ALL RELATED OPERATIONS
 
@@ -708,15 +761,25 @@ npx claude-flow@v3alpha hooks worker status
 V3 includes the RuVector Intelligence System:
 - **SONA**: Self-Optimizing Neural Architecture (<0.05ms adaptation)
 - **MoE**: Mixture of Experts for specialized routing
-- **HNSW**: 150x-12,500x faster pattern search
+- **HNSW**: 150x-12,500x faster pattern search (persistent index)
+- **DiskANN**: Billion-scale graph-based vector index (ADR-077)
 - **EWC++**: Elastic Weight Consolidation (prevents forgetting)
-- **Flash Attention**: 2.49x-7.47x speedup
+- **Flash Attention**: 2.49x-7.47x speedup (`@ruvector/attention ^0.1.32`, verified)
+- **MicroLoRA**: Lightweight LoRA fine-tuning pipeline (distillation, verified)
 
 The 4-step intelligence pipeline:
-1. **RETRIEVE** — Fetch relevant patterns via HNSW
+1. **RETRIEVE** — Fetch relevant patterns via HNSW or DiskANN
 2. **JUDGE** — Evaluate with verdicts (success/failure)
-3. **DISTILL** — Extract key learnings via LoRA
+3. **DISTILL** — Extract key learnings via MicroLoRA
 4. **CONSOLIDATE** — Prevent catastrophic forgetting via EWC++
+
+### Vector Search Backends
+
+| Backend | Scale | Use Case |
+|---------|-------|----------|
+| HNSW | Millions | In-memory, fast recall for agent patterns |
+| DiskANN | Billions | Disk-resident, scalable production deployments |
+| sql.js | Thousands | Embedded SQLite, offline/edge environments |
 
 ## Embeddings Package (v3.0.0-alpha.12)
 
@@ -748,9 +811,11 @@ Features:
 | Metric | Target | Status |
 |--------|--------|--------|
 | HNSW Search | 150x-12,500x faster | **Implemented** (persistent) |
+| DiskANN Search | Billion-scale graph index | **Implemented** (ADR-077) |
 | Memory Reduction | 50-75% with quantization | **Implemented** (3.92x Int8) |
 | SONA Integration | Pattern learning | **Implemented** (ReasoningBank) |
-| Flash Attention | 2.49x-7.47x speedup | In progress |
+| MicroLoRA Pipeline | LoRA fine-tuning distillation | **Implemented** (verified) |
+| Flash Attention | 2.49x-7.47x speedup | **Implemented** (@ruvector/attention ^0.1.32) |
 | MCP Response | <100ms | Achieved |
 | CLI Startup | <500ms | Achieved |
 | SONA Adaptation | <0.05ms | In progress |
@@ -828,15 +893,18 @@ npx claude-flow@v3alpha doctor --fix
 
 ## Claude Code ↔ AgentDB Memory Bridge
 
-Claude Code's auto-memory (`~/.claude/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search.
+Claude Code's auto-memory (`~/.claude/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search. Phase 2 MCP tools (ADR-076) are fully implemented.
 
-### MCP Tools
+### MCP Tools (Phase 2 — ADR-076)
 
 | Tool | Description |
 |------|-------------|
 | `memory_import_claude` | Import Claude Code memories into AgentDB with 384-dim ONNX embeddings. Use `allProjects: true` to import from ALL projects. |
 | `memory_bridge_status` | Show bridge health — Claude files, AgentDB entries, SONA state, connection status |
 | `memory_search_unified` | Semantic search across ALL namespaces (claude-memories, auto-memory, patterns, tasks, feedback) |
+| `memory_store` | Store key/value data into a named namespace with optional vector indexing |
+| `memory_retrieve` | Retrieve a stored entry by namespace + key |
+| `memory_list_namespaces` | List all active memory namespaces and entry counts |
 
 ### Auto-Import on Session Start
 
@@ -882,25 +950,25 @@ memory_search_unified({ query: "authentication security", limit: 5 })
 ```bash
 # STEP 1: Build and publish CLI
 cd v3/@claude-flow/cli
-npm version 3.0.0-alpha.XXX --no-git-tag-version
+npm version 3.5.XXX --no-git-tag-version
 npm run build
 npm publish --tag alpha
-npm dist-tag add @claude-flow/cli@3.0.0-alpha.XXX latest
+npm dist-tag add @claude-flow/cli@3.5.XXX latest
 
 # STEP 2: Publish claude-flow umbrella
 cd /workspaces/claude-flow
-npm version 3.0.0-alpha.XXX --no-git-tag-version
+npm version 3.5.XXX --no-git-tag-version
 npm publish --tag v3alpha
 
 # STEP 3: Update ALL claude-flow umbrella tags (CRITICAL - DON'T SKIP!)
-npm dist-tag add claude-flow@3.0.0-alpha.XXX latest
-npm dist-tag add claude-flow@3.0.0-alpha.XXX alpha
+npm dist-tag add claude-flow@3.5.XXX latest
+npm dist-tag add claude-flow@3.5.XXX alpha
 
 # STEP 4: Publish ruflo umbrella (CRITICAL - DON'T FORGET!)
 cd /workspaces/claude-flow/ruflo
-npm version 3.0.0-alpha.XXX --no-git-tag-version
+npm version 3.5.XXX --no-git-tag-version
 npm publish --tag alpha
-npm dist-tag add ruflo@3.0.0-alpha.XXX latest
+npm dist-tag add ruflo@3.5.XXX latest
 ```
 
 **Verification (run before telling user):**
