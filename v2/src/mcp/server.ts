@@ -241,14 +241,20 @@ export class MCPServer implements IMCPServer {
     const sessionMetrics = this.sessionManager.getSessionMetrics();
     const lbMetrics = this.loadBalancer?.getMetrics();
 
+    const allToolMetrics = this.toolRegistry.getToolMetrics() as import('./tools.js').ToolMetrics[];
+    const toolInvocations: Record<string, number> = {};
+    for (const tm of allToolMetrics) {
+      toolInvocations[tm.name] = tm.totalInvocations;
+    }
+
     return {
       totalRequests: routerMetrics.totalRequests,
       successfulRequests: routerMetrics.successfulRequests,
       failedRequests: routerMetrics.failedRequests,
       averageResponseTime: lbMetrics?.averageResponseTime || 0,
       activeSessions: sessionMetrics.active,
-      toolInvocations: {}, // TODO: Implement tool-specific metrics
-      errors: {}, // TODO: Implement error categorization
+      toolInvocations,
+      errors: routerMetrics.errors,
       lastReset: lbMetrics?.lastReset || new Date(),
     };
   }

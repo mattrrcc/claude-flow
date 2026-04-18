@@ -14,6 +14,7 @@ export class RequestRouter {
   private totalRequests = 0;
   private successfulRequests = 0;
   private failedRequests = 0;
+  private errorCounts = new Map<string, number>();
 
   constructor(
     private toolRegistry: ToolRegistry,
@@ -52,6 +53,8 @@ export class RequestRouter {
       throw new MCPMethodNotFoundError(method);
     } catch (error) {
       this.failedRequests++;
+      const errorType = error instanceof Error ? error.constructor.name : 'UnknownError';
+      this.errorCounts.set(errorType, (this.errorCounts.get(errorType) || 0) + 1);
       throw error;
     }
   }
@@ -63,11 +66,13 @@ export class RequestRouter {
     totalRequests: number;
     successfulRequests: number;
     failedRequests: number;
+    errors: Record<string, number>;
   } {
     return {
       totalRequests: this.totalRequests,
       successfulRequests: this.successfulRequests,
       failedRequests: this.failedRequests,
+      errors: Object.fromEntries(this.errorCounts),
     };
   }
 
