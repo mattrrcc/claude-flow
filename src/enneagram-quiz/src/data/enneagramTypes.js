@@ -1,0 +1,167 @@
+export const enneagramTypes = {
+  1: {
+    name: "The Reformer",
+    nickname: "The Perfectionist",
+    emoji: "⚖️",
+    tagline: "Principled, purposeful, self-controlled, and perfectionistic",
+    coreDesire: "To be good, have integrity, and be balanced",
+    coreFear: "Being corrupt, evil, or defective",
+    description:
+      "Type 1s are driven by a deep sense of right and wrong. You hold yourself and others to high standards and have a strong inner critic. You see what could be improved in the world and feel a calling to fix it. At your best, you are ethical, responsible, and inspiring. Growth comes when you learn to accept imperfection — in yourself and others — and find that 'good enough' can truly be enough.",
+    strengths: ["Ethical", "Reliable", "Hardworking", "Honest", "Self-disciplined"],
+    challenges: ["Self-critical", "Perfectionistic", "Judgmental", "Rigid", "Resentful"],
+    growthPath:
+      "Practice self-compassion. When your inner critic gets loud, ask: 'Would I say this to a friend?' Release the need to fix everything — rest is not laziness, it's renewal.",
+    famousExamples: ["Nelson Mandela", "Michelle Obama", "Mahatma Gandhi"],
+    color: "#2ecc71",
+  },
+  2: {
+    name: "The Helper",
+    nickname: "The Giver",
+    emoji: "🤝",
+    tagline: "Caring, interpersonal, generous, and people-pleasing",
+    coreDesire: "To feel loved and needed",
+    coreFear: "Being unwanted or unworthy of love",
+    description:
+      "Type 2s are warm, empathetic people who often put others' needs before their own. You sense what people need and derive deep satisfaction from helping. However, this generosity can sometimes mask an unspoken expectation of love in return. At your best, you are genuinely selfless and nurturing. Growth comes from learning that you are lovable simply for who you are — not for what you do for others.",
+    strengths: ["Empathetic", "Generous", "Warm", "Supportive", "Intuitive about others"],
+    challenges: ["People-pleasing", "Needy for appreciation", "Intrusive", "Martyr complex", "Difficulty saying no"],
+    growthPath:
+      "Your needs matter too. Practice asking for help without guilt. True love — given and received — doesn't keep score.",
+    famousExamples: ["Mother Teresa", "Princess Diana", "Dolly Parton"],
+    color: "#e74c3c",
+  },
+  3: {
+    name: "The Achiever",
+    nickname: "The Performer",
+    emoji: "🏆",
+    tagline: "Success-oriented, pragmatic, adaptive, and image-conscious",
+    coreDesire: "To feel valuable and worthwhile",
+    coreFear: "Being worthless or failing",
+    description:
+      "Type 3s are driven, goal-oriented, and highly motivated by success. You adapt effortlessly to your audience and excel at presenting the best version of yourself. You are a natural motivator. At your best, you are inspirational, authentic, and effective. The growth edge for 3s is discovering that your worth isn't tied to your accomplishments — you are enough just as you are, underneath the achievements.",
+    strengths: ["Ambitious", "Competent", "Energetic", "Confident", "Inspiring"],
+    challenges: ["Workaholism", "Deceptive (to self/others)", "Competitive", "Image-obsessed", "Emotionally disconnected"],
+    growthPath:
+      "Slow down enough to ask: 'Who am I when I'm not achieving?' Your authentic self — not your highlight reel — is what truly connects you to others.",
+    famousExamples: ["Oprah Winfrey", "Tony Robbins", "Taylor Swift"],
+    color: "#f39c12",
+  },
+  4: {
+    name: "The Individualist",
+    nickname: "The Romantic",
+    emoji: "🎨",
+    tagline: "Expressive, dramatic, self-absorbed, and temperamental",
+    coreDesire: "To find themselves and their significance",
+    coreFear: "Having no identity or personal significance",
+    description:
+      "Type 4s are deeply in touch with their inner emotional world and feel most alive when exploring beauty, meaning, and authenticity. You long to be understood and fear being ordinary. You feel things deeply — joy and sorrow alike. At your best, 4s are profoundly creative, honest, and compassionate. Growth comes from recognizing that the present moment — however ordinary — contains everything you've been searching for.",
+    strengths: ["Creative", "Introspective", "Emotionally honest", "Compassionate", "Authentic"],
+    challenges: ["Moody", "Self-conscious", "Withdrawn", "Envious", "Melancholic"],
+    growthPath:
+      "The feeling of 'something missing' is a story, not a fact. Practice gratitude for what is here now. Your depth is a gift — don't let it become a prison.",
+    famousExamples: ["Frida Kahlo", "Johnny Depp", "Sylvia Plath"],
+    color: "#9b59b6",
+  },
+  5: {
+    name: "The Investigator",
+    nickname: "The Thinker",
+    emoji: "🔍",
+    tagline: "Intense, cerebral, perceptive, and innovative",
+    coreDesire: "To be capable and competent",
+    coreFear: "Being helpless, useless, or overwhelmed",
+    description:
+      "Type 5s are intellectually curious, private individuals who seek deep understanding of the world. You observe more than you participate and conserve your energy carefully. Your mind is a sanctuary. At your best, 5s are visionary thinkers who change how we see the world. Growth comes from stepping out of your head and into engaged, present-moment living — sharing your knowledge, not just holding it.",
+    strengths: ["Perceptive", "Innovative", "Objective", "Scholarly", "Self-sufficient"],
+    challenges: ["Isolated", "Detached", "Hoarding (time/energy)", "Secretive", "Overly intellectual"],
+    growthPath:
+      "Knowledge shared is knowledge multiplied. Your insights matter — but they need expression to have impact. Let people in; vulnerability won't deplete you.",
+    famousExamples: ["Albert Einstein", "Bill Gates", "Stephen Hawking"],
+    color: "#3498db",
+  },
+  6: {
+    name: "The Loyalist",
+    nickname: "The Skeptic",
+    emoji: "🛡️",
+    tagline: "Committed, security-oriented, engaging, and responsible",
+    coreDesire: "To have security and support",
+    coreFear: "Being without support or guidance",
+    description:
+      "Type 6s are loyal, responsible, and attuned to potential dangers and problems. You are excellent at anticipating what could go wrong and preparing for it. You value trust deeply and are one of the most committed, reliable friends and partners anyone can have. At your best, 6s are courageous and self-reliant. Growth comes from learning to trust yourself — your inner authority is more reliable than you think.",
+    strengths: ["Loyal", "Reliable", "Responsible", "Perceptive about danger", "Courageous"],
+    challenges: ["Anxious", "Suspicious", "Indecisive", "Defensive", "Catastrophizing"],
+    growthPath:
+      "Most of what you worry about never happens. Practice trusting your own judgment. Courage isn't the absence of fear — it's moving forward anyway.",
+    famousExamples: ["Jennifer Aniston", "Barack Obama", "Tom Hanks"],
+    color: "#1abc9c",
+  },
+  7: {
+    name: "The Enthusiast",
+    nickname: "The Adventurer",
+    emoji: "🌟",
+    tagline: "Spontaneous, versatile, playful, and scattered",
+    coreDesire: "To be satisfied and content",
+    coreFear: "Being deprived or in pain",
+    description:
+      "Type 7s are enthusiastic, adventurous, and always looking toward the next exciting experience. You bring joy and possibility into every room. You reframe negatives into positives with ease. At your best, 7s are joyful, accomplished, and deeply grateful. Growth comes from discovering that the satisfaction you seek outwardly is found by going inward — slowing down and being present reveals the abundance already here.",
+    strengths: ["Enthusiastic", "Optimistic", "Versatile", "Spontaneous", "Fun"],
+    challenges: ["Scattered", "Impulsive", "Commitment-avoidant", "Superficial", "Escapist"],
+    growthPath:
+      "You can have joy AND depth. What are you running from? Sitting with discomfort — just briefly — opens doors that speed cannot. The present moment has everything you need.",
+    famousExamples: ["Robin Williams", "Elton John", "Steven Spielberg"],
+    color: "#f1c40f",
+  },
+  8: {
+    name: "The Challenger",
+    nickname: "The Protector",
+    emoji: "💪",
+    tagline: "Powerful, dominating, self-confident, and confrontational",
+    coreDesire: "To protect themselves and control their own life",
+    coreFear: "Being controlled or harmed by others",
+    description:
+      "Type 8s are strong, assertive, and natural leaders who refuse to be controlled. You have tremendous energy and a deep instinct to protect the vulnerable. You speak plainly and expect the same in return. At your best, 8s are magnanimous, courageous, and deeply generous. Growth comes from learning that vulnerability isn't weakness — it's the foundation of the deepest trust and connection.",
+    strengths: ["Confident", "Decisive", "Protective", "Resourceful", "Direct"],
+    challenges: ["Domineering", "Confrontational", "Intimidating", "Vengeful", "Dismissive of feelings"],
+    growthPath:
+      "Your strength is your gift — and your walls are your limitation. Let people see the tender heart beneath the armor. Softness doesn't make you weak; it makes you whole.",
+    famousExamples: ["Martin Luther King Jr.", "Winston Churchill", "Serena Williams"],
+    color: "#e67e22",
+  },
+  9: {
+    name: "The Peacemaker",
+    nickname: "The Mediator",
+    emoji: "☮️",
+    tagline: "Receptive, reassuring, agreeable, and complacent",
+    coreDesire: "To have inner stability and peace",
+    coreFear: "Loss of connection and fragmentation",
+    description:
+      "Type 9s are gentle, accepting, and gifted at seeing all perspectives. You have a natural ability to make others feel seen and heard. You avoid conflict and long for harmony. At your best, 9s are deeply inclusive, calming presences who bring people together. Growth comes from recognizing that your voice and desires matter — showing up fully for yourself is the foundation of true peace, not its enemy.",
+    strengths: ["Accepting", "Trusting", "Patient", "Empathetic", "Supportive"],
+    challenges: ["Indecisive", "Passive-aggressive", "Avoidant", "Self-forgetting", "Complacent"],
+    growthPath:
+      "Peace built on self-erasure isn't peace — it's disappearance. Your presence, your wants, your 'no' — these are gifts, not burdens. Claim your seat at the table.",
+    famousExamples: ["Barack Obama", "Dalai Lama", "Keanu Reeves"],
+    color: "#95a5a6",
+  },
+};
+
+export const wings = {
+  "1w9": "The Idealist — more introverted and dreamy; seeks perfection with detachment",
+  "1w2": "The Advocate — perfectionistic but warm; uses high standards to serve others",
+  "2w1": "The Servant — gives with a sense of moral duty",
+  "2w3": "The Host — charming, ambitious in helping, socially savvy",
+  "3w2": "The Charmer — success-oriented with warmth and people skills",
+  "3w4": "The Professional — achievement-focused with depth and individuality",
+  "4w3": "The Aristocrat — creative and ambitious; balances uniqueness with performance",
+  "4w5": "The Bohemian — intensely introspective, unconventional, intellectual",
+  "5w4": "The Iconoclast — intellectual with creative, individualistic flair",
+  "5w6": "The Problem Solver — analytical, reliable, systems-oriented",
+  "6w5": "The Defender — loyal with intellectual independence",
+  "6w7": "The Buddy — security-seeking but fun-loving and engaging",
+  "7w6": "The Entertainer — adventurous but responsible; balances fun with loyalty",
+  "7w8": "The Realist — energetic and assertive; bold and decisive",
+  "8w7": "The Maverick — powerful and adventurous; loves freedom and impact",
+  "8w9": "The Bear — strong but gentle; powerful presence with calm control",
+  "9w8": "The Referee — peaceful but assertive when pushed",
+  "9w1": "The Dreamer — idealistic and serene; strong moral compass",
+};
