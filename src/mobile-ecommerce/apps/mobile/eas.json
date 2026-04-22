@@ -1,0 +1,65 @@
+{
+  "cli": {
+    "version": ">= 10.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://localhost:3000/api",
+        "EXPO_PUBLIC_SQUARE_APP_ID": "sandbox-sq0idb-development",
+        "EXPO_PUBLIC_SQUARE_LOCATION_ID": "sandbox-location-id"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium",
+        "simulator": false
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://staging.rebelreaper.com/api",
+        "EXPO_PUBLIC_SQUARE_APP_ID": "sandbox-sq0idb-preview",
+        "EXPO_PUBLIC_SQUARE_LOCATION_ID": "sandbox-location-preview"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "android": {
+        "buildType": "aab"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://rebelreaper.com/api",
+        "EXPO_PUBLIC_SQUARE_APP_ID": "sq0idp-production-app-id",
+        "EXPO_PUBLIC_SQUARE_LOCATION_ID": "production-location-id"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "developer@rebelreaper.com",
+        "ascAppId": "6000000000000",
+        "appleTeamId": "TEAMIDHERE"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production"
+      }
+    }
+  }
+}
